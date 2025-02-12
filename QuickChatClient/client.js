@@ -34,3 +34,14 @@ connection.on("UserJoined", (userName) => {
         alertElement.style.display = 'none'
     }, 2000)
 })
+
+connection.on("UserListUpdate", (userList) => {
+    const userListItems = document.getElementById('userListItems')
+    userListItems.innerHTML = ''
+
+    userList.forEach(user => {
+        const li = document.createElement('li')
+        li.textContent = user.userName
+        userListItems.appendChild(li)
+    });
+})

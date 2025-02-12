@@ -10,4 +10,9 @@ public static class ClientRepository
     {
         Clients.Add(client);
     }
+
+    public static List<Client> GetClients()
+    {
+        return Clients;
+    }
 }

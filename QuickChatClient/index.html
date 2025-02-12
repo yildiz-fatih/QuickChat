@@ -6,10 +6,53 @@
   <title>💬 QuickChat</title>
   <style>
     #userJoinAlert {
-      display: none;
-      width: 80%;
-      max-width: 600px;
-      margin: 10px auto;
+        display: none;
+        width: 80%;
+        max-width: 600px;
+        margin: 10px auto;
+    }
+
+    #userList {
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        width: 180px;
+        max-height: 150px;
+        overflow-y: scroll;
+        background-color: #ffffff;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 10px;
+        font-size: 0.9rem;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    #userList::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    #userList::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 10px;
+    }
+
+    #userList ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    #userList li {
+        padding: 5px 10px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    #userList li:nth-child(even) {
+        background-color: #f4f6f5;
+    }
+
+    #userList li:last-child {
+        border-bottom: none;
     }
   </style>
 </head>
@@ -29,6 +72,12 @@
         <button type="submit" class="btn btn-primary w-100" id="loginButton">Login</button>
       </form>
     </div>
+  </div>
+
+  <!-- User List at the bottom left -->
+  <div id="userList">
+    <h5 class="text-center mb-3">Users</h5>
+    <ul id="userListItems"></ul>
   </div>
 
   <script type="module" src="./client.js"></script>

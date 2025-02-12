@@ -16,5 +16,7 @@ public class ChatHub : Hub
         ClientRepository.AddClient(client);
         
         await Clients.Others.SendAsync("UserJoined", userName);
+
+        await Clients.All.SendAsync("UserListUpdate", ClientRepository.GetClients());
     }
 }
