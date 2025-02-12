@@ -15,4 +15,22 @@ public static class ClientRepository
     {
         return Clients;
     }
+
+    public static void RemoveClient(Client client)
+    {
+        Clients.Remove(client);
+    }
+
+    public static Client GetClientByConnectionId(string connectionId)
+    {
+        foreach (var client in Clients)
+        {
+            if (client.ConnectionId == connectionId)
+            {
+                return client;
+            }
+        }
+        
+        return null;
+    }
 }

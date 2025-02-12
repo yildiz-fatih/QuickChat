@@ -6,6 +6,7 @@ namespace QuickChatApi.Hubs;
 
 public class ChatHub : Hub
 {
+    // When a user connects
     public async Task GetUserName(string userName)
     {
         var client = new Client()
@@ -17,6 +18,14 @@ public class ChatHub : Hub
         
         await Clients.Others.SendAsync("UserJoined", userName);
 
+        await Clients.All.SendAsync("UserListUpdate", ClientRepository.GetClients());
+    }
+    
+    // When a user disconnects
+    public override async Task OnDisconnectedAsync(Exception? exception)
+    {
+        ClientRepository.RemoveClient(ClientRepository.GetClientByConnectionId(Context.ConnectionId));
+        
         await Clients.All.SendAsync("UserListUpdate", ClientRepository.GetClients());
     }
 }
