@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>💬 QuickChat</title>
+  <style>
+    #userJoinAlert {
+      display: none;
+      width: 80%;
+      max-width: 600px;
+      margin: 10px auto;
+    }
+  </style>
+</head>
+<body class="position-relative vh-100 p-3">
+
+  <h1 class="text-center">QuickChat</h1>
+
+  <!-- Alert Component -->
+  <div id="userJoinAlert" class="alert alert-success"></div>
+
+  <!-- Login form on the top right -->
+  <div class="position-absolute top-0 end-0 mt-5 me-5">
+    <div class="p-3 border rounded bg-white shadow-sm">
+      <h4 class="text-center mb-3">Login</h4>
+      <form id="loginForm">
+        <input type="text" class="form-control mb-2" id="userNameInput" placeholder="Enter username" required />
+        <button type="submit" class="btn btn-primary w-100" id="loginButton">Login</button>
+      </form>
+    </div>
+  </div>
+
+  <script type="module" src="./client.js"></script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+body {
+    background-color: #D0F6BF;
+    color: #3a3a3a;
+    font-family: Verdana, Geneva, sans-serif;
+    font-size: 0.9rem;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Center the page title */
+  h1 {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 2rem;
+    color: #746EE3;
+  }
+  
+  .custom-card {
+    font-size: 0.9rem;
+    max-width: 320px;
+  }
+  
+  .row.justify-content-end {
+    margin-right: 20px;
+  }
+  
