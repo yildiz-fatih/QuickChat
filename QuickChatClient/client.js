@@ -10,12 +10,15 @@ const connection = new signalR.HubConnectionBuilder()
 
 connection.start()
 
-document.getElementById('loginButton').addEventListener('click', () => {
+document.getElementById('loginForm').addEventListener('submit', (event) => {
+    event.preventDefault()
+  
     const userName = document.getElementById('userNameInput').value
+  
     connection
-        .invoke("GetUserName", userName)
-        .catch(err => console.error(err))
-})
+      .invoke("GetUserName", userName)
+      .catch(err => console.error(err))
+  })
 
 connection.on("UserJoined", (userName) => {
     const alertElement = document.getElementById('userJoinAlert')
