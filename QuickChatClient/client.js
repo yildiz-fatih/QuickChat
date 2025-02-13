@@ -9,7 +9,7 @@ import "bootstrap";
 import * as signalR from "@microsoft/signalr";
 
 const connection = new signalR.HubConnectionBuilder()
-  .withUrl("http://localhost:5007/chathub")
+  .withUrl("http://192.168.0.24:5007/chathub")
   .configureLogging(signalR.LogLevel.Information)
   .build();
 
