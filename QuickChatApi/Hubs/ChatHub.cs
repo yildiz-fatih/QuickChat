@@ -28,4 +28,20 @@ public class ChatHub : Hub
         
         await Clients.All.SendAsync("UserListUpdate", ClientRepository.GetClients());
     }
+    
+    public async Task SendMessage(string message, string targetUserName)
+    {
+        var senderUserName = ClientRepository.GetClientByConnectionId(Context.ConnectionId).UserName;
+        
+        if (targetUserName == "all")
+        {
+            await Clients.All.SendAsync("NewMessage", senderUserName, "all", message);
+        }
+        else
+        {
+            var targetClient = ClientRepository.GetClientByUserName(targetUserName);
+            
+            await Clients.Client(targetClient.ConnectionId).SendAsync("NewMessage", senderUserName, targetUserName, message);
+        }
+    }
 }

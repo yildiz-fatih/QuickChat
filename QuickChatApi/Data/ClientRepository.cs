@@ -33,4 +33,17 @@ public static class ClientRepository
         
         return null;
     }
+    
+    public static Client GetClientByUserName(string userName)
+    {
+        foreach (var client in Clients)
+        {
+            if (client.UserName == userName)
+            {
+                return client;
+            }
+        }
+        
+        return null;
+    }
 }
