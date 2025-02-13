@@ -35,7 +35,7 @@ h1 {
   margin: 10px auto;
 }
 /* User List Container */
-#userList {
+#userListContainer {
   position: absolute;
   bottom: 20px;
   left: 20px;
@@ -49,50 +49,50 @@ h1 {
   font-size: 0.9rem;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-#userList::-webkit-scrollbar {
+#userListContainer::-webkit-scrollbar {
   width: 8px;
 }
-#userList::-webkit-scrollbar-thumb {
+#userListContainer::-webkit-scrollbar-thumb {
   background: #888;
   border-radius: 10px;
 }
 
-#userList ul {
+#userListContainer ul {
   list-style-type: none;
   padding: 0;
   margin: 0;
 }
-#userList li {
+#userListContainer li {
   border-bottom: 1px solid #ddd;
 }
-#userList li:last-child {
+#userListContainer li:last-child {
   border-bottom: none;
 }
 
-#userList li input {
+#userListContainer li input {
   display: none;
 }
 
-#userList li label {
+#userListContainer li label {
   display: block;
   padding: 5px 10px;
   cursor: pointer;
   transition: background-color 0.2s;
 }
 
-#userList li input:checked + label {
+#userListContainer li input:checked + label {
   background-color: #746ee3;
   color: white;
   font-weight: bold;
 }
 
 /* Message Form */
-.message-container {
+#messageFormContainer {
   margin: 20px auto;
   max-width: 400px;
   text-align: center;
 }
-.message-container input[type="text"] {
+#messageFormContainer input[type="text"] {
   width: 70%;
   padding: 8px;
   border: 1px solid #ccc;

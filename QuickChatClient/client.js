@@ -1,4 +1,8 @@
-import { createMessageElement, createUserListItem } from "./domUtils";
+import {
+  createMessageElement,
+  createUserListItem,
+  createWelcomeMessage,
+} from "./domUtils";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./style.css";
 import "bootstrap";
@@ -20,8 +24,14 @@ document.getElementById("loginForm").addEventListener("submit", (event) => {
 
   connection.invoke("GetUserName", localUserName).catch(console.error);
 
-  // Hide the login form once logged in
-  document.getElementById("loginFormContainer").classList.add("hidden");
+  // Replace the login form with the welcome message using the utility function
+  const loginFormContainer = document.getElementById("loginFormContainer");
+  loginFormContainer.innerHTML = ""; // Clear the login form content
+  loginFormContainer.appendChild(createWelcomeMessage(localUserName));
+
+  // Show the hidden elements for the logged-in user
+  document.getElementById("messageFormContainer").classList.remove("hidden");
+  document.getElementById("userListContainer").classList.remove("hidden");
 });
 
 connection.on("UserJoined", (userName) => {
