@@ -1,99 +1,192 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>💬 QuickChat</title>
-  <style>
-    #userJoinAlert {
-        display: none;
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>💬 QuickChat</title>
+    <style>
+      /* Alert */
+      #userJoinAlert {
         width: 80%;
         max-width: 600px;
         margin: 10px auto;
-    }
-
-    #userList {
+      }
+      /* User List Container */
+      #userList {
         position: absolute;
         bottom: 20px;
         left: 20px;
         width: 180px;
         max-height: 150px;
-        overflow-y: scroll;
+        overflow-y: auto;
         background-color: #ffffff;
         border: 1px solid #ccc;
         border-radius: 5px;
         padding: 10px;
         font-size: 0.9rem;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-
-    #userList::-webkit-scrollbar {
+      }
+      #userList::-webkit-scrollbar {
         width: 8px;
-    }
-
-    #userList::-webkit-scrollbar-thumb {
+      }
+      #userList::-webkit-scrollbar-thumb {
         background: #888;
         border-radius: 10px;
-    }
+      }
 
-    #userList ul {
+      #userList ul {
         list-style-type: none;
         padding: 0;
         margin: 0;
-    }
-
-    #userList li {
-        padding: 5px 10px;
+      }
+      #userList li {
         border-bottom: 1px solid #ddd;
-    }
-
-    #userList li:nth-child(even) {
-        background-color: #f4f6f5;
-    }
-
-    #userList li:last-child {
+      }
+      #userList li:last-child {
         border-bottom: none;
-    }
+      }
 
-    #loginButton {
-        background-color: #746EE3;
+      #userList li input {
+        display: none;
+      }
+
+      #userList li label {
+        display: block;
+        padding: 5px 10px;
+        cursor: pointer;
+        transition: background-color 0.2s;
+      }
+
+      #userList li input:checked + label {
+        background-color: #746ee3;
+        color: white;
+        font-weight: bold;
+      }
+
+      /* Message Form */
+      .message-container {
+        margin: 20px auto;
+        max-width: 400px;
+        text-align: center;
+      }
+      .message-container input[type="text"] {
+        width: 70%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+      .send-button {
+        background-color: #746ee3;
+        border: none;
+        color: white;
+        padding: 8px 12px;
+        border-radius: 4px;
+        margin-left: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+      .send-button:hover {
+        background-color: #5c56c5;
+      }
+
+      /* Login Form Styles */
+      #loginButton {
+        background-color: #746ee3;
         border: none;
         color: white;
         font-weight: bold;
         border-radius: 5px;
         cursor: pointer;
-    }
-
-    #loginButton:hover {
+      }
+      #loginButton:hover {
         background-color: #5c56c5;
-    }
+      }
 
-  </style>
-</head>
-<body class="position-relative vh-100 p-3">
+      #messagesContainer {
+        margin: 20px auto;
+        max-width: 400px;
+      }
 
-  <h1 class="text-center">QuickChat</h1>
+      .message-box {
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: #ffffff;
+        font-size: 0.9rem;
+      }
 
-  <!-- Alert Component -->
-  <div id="userJoinAlert" class="alert alert-success"></div>
+      .message-header {
+        font-weight: bold;
+        color: #5c56c5;
+        background-color: #f4f4ff;
+        padding: 4px 8px;
+        border-radius: 4px 4px 0 0;
+        border-bottom: 1px solid #ddd;
+      }
 
-  <!-- Login form on the top right -->
-  <div class="position-absolute top-0 end-0 mt-5 me-5">
-    <div class="p-3 border rounded bg-white shadow-sm">
-      <h4 class="text-center mb-3">Login</h4>
-      <form id="loginForm">
-        <input type="text" class="form-control mb-2" id="userNameInput" placeholder="Enter username" required />
-        <button type="submit" class="btn btn-primary w-100" id="loginButton">Login</button>
+      .message-body {
+        padding: 8px;
+        background-color: #ffffff;
+      }
+    </style>
+  </head>
+  <body class="position-relative vh-100 p-3">
+    <h1 class="text-center">QuickChat</h1>
+
+    <!-- Message Form -->
+    <div class="message-container">
+      <form id="messageForm">
+        <input
+          type="text"
+          id="messageInput"
+          placeholder="Type your message here"
+          required
+        />
+        <button type="submit" class="send-button" id="sendButton">Send</button>
       </form>
     </div>
-  </div>
 
-  <!-- User List at the bottom left -->
-  <div id="userList">
-    <h5 class="text-center mb-3">Users</h5>
-    <ul id="userListItems"></ul>
-  </div>
+    <!-- Alert -->
+    <div id="userJoinAlert" class="hidden alert alert-success"></div>
 
-  <script type="module" src="./client.js"></script>
-</body>
+    <!-- Messages Container -->
+    <div id="messagesContainer" class="hidden"></div>
+
+    <!-- Login Form -->
+    <div
+      class="position-absolute top-0 end-0 mt-5 me-5"
+      id="loginFormContainer"
+    >
+      <div class="p-3 border rounded bg-white shadow-sm">
+        <h4 class="text-center mb-3">Login</h4>
+        <form id="loginForm">
+          <input
+            type="text"
+            class="form-control mb-2"
+            id="userNameInput"
+            placeholder="Enter username"
+            required
+          />
+          <button type="submit" class="btn btn-primary w-100" id="loginButton">
+            Login
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- User List -->
+    <div id="userList">
+      <h5 class="text-center mb-3">Users</h5>
+      <ul id="userListItems">
+        <li>
+          <!-- "All" Option -->
+          <input type="radio" name="selectedUser" id="all" checked />
+          <label for="all" class="all-option">All</label>
+        </li>
+      </ul>
+    </div>
+
+    <script type="module" src="./client.js"></script>
+  </body>
 </html>
