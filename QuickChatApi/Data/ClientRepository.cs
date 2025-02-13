@@ -23,27 +23,11 @@ public static class ClientRepository
 
     public static Client GetClientByConnectionId(string connectionId)
     {
-        foreach (var client in Clients)
-        {
-            if (client.ConnectionId == connectionId)
-            {
-                return client;
-            }
-        }
-        
-        return null;
+        return Clients.FirstOrDefault(client => client.ConnectionId == connectionId);
     }
     
     public static Client GetClientByUserName(string userName)
     {
-        foreach (var client in Clients)
-        {
-            if (client.UserName == userName)
-            {
-                return client;
-            }
-        }
-        
-        return null;
+        return Clients.FirstOrDefault(client => client.UserName == userName);
     }
 }
