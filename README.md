@@ -1,5 +1,5 @@
-# QuickChat
+# 💬 QuickChat
 
-QuickChat is a simple real-time chat application built with **SignalR** and **ASP.NET Core** on the backend.
+**QuickChat** is a simple real-time chat app built with **SignalR** and **ASP.NET Core**
 
-This project is created to help me learn **SignalR** for real-time communication.
+I developed this project to help me learn real-time communication using **SignalR**
